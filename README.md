@@ -32,3 +32,6 @@ new Vue({
   * updated
   * beforeDestory
   * destroyed
+
+### 컴포넌트
+* 재사용이 가능하도록한 화면 구성의 최소 단위
