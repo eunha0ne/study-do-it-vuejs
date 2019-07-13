@@ -1,9 +1,19 @@
 <html>
 <head>
-  <title>Vue Instance Lifecycle</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Components Registration</title>
 </head>
 <body>
   <div id="app">
+    <h3>첫 번재 인스턴스 영역</h3>
+    <button>컴포넌트 등록</button>
+    <my-component></my-component>
+    <my-local-component></my-local-component>
+  </div>
+  <hr>
+  <div id="app2">
+    <h3>두 번재 인스턴스 영역</h3>
     <button>컴포넌트 등록</button>
     <my-component></my-component>
     <my-local-component></my-local-component>
@@ -27,6 +37,11 @@
         'my-local-component': cmp
       }
     });
+
+    new Vue({
+      el: '#app2',
+    });
+
   </script>
 </body>
 </html>
