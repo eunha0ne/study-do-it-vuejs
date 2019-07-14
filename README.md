@@ -39,6 +39,9 @@ new Vue({
 
 ### 뷰 컴포넌트 통신
 * props 전달은 v-bind 속성을 사용
+```html
+<child-component v-bind:props 속성 이름="상위 컴포넌트의 data 속성"></child-component>
+```
 
 ### 하위에서 상위 컴포넌트로 이벤트 전달하기
 ```javascript
