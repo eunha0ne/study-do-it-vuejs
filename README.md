@@ -1,4 +1,5 @@
 # Do it Vue.js
+
 ## Vue.js란?
 * 화면을 개발을 위한 Progresiive framework(점진적인 프레임워크), 라이브러리의 역할도 수행할 수 있다.
   * 프레임워크
@@ -42,32 +43,59 @@ new Vue({
   * 인스턴스 내용이 화면 요소로 변환
   * 변환된 화면 요소를 사용자가 최종 확인
 * 뷰 인스턴스 라이프 사이클 속성
-  * beforeCreate
-  * created
-  * beforeMount
-  * mounted
-  * beforeUpdate
-  * updated
-  * beforeDestory
-  * destroyed
+  * beforeCreate -> created -> beforeMount -> mounted -> beforeUpdate -> updated -> beforeDestory -> destroyed
 
 ### 컴포넌트
 * 재사용이 가능하도록한 화면 구성의 최소 단위
-* 전역 컴포넌트와 지역 컴포넌트는 유효 범위가 다르다.
+* 전역 컴포넌트와 지역 컴포넌트의 유효 범위가 다르다.
 
 ### 뷰 컴포넌트 통신
+#### 상위에서 하위 컴포넌트로 데이터 전달하기
 * props 전달은 v-bind 속성을 사용
 ```html
+<!-- 상위 컴포넌트의 HTML 코드 -->
 <child-component v-bind:props 속성 이름="상위 컴포넌트의 data 속성"></child-component>
 ```
 
-### 하위에서 상위 컴포넌트로 이벤트 전달하기
+```javascript
+// 하위 컴포넌트의 props 속성 정의 방식
+Vue.component('child-component', {
+  props: ['props 속성 이름']
+});
+```
+
+#### 하위에서 상위 컴포넌트로 이벤트 전달하기
+* 이벤트 발생과 수신 형식
 ```javascript
 // 이벤트 발생
 this.$emit('이벤트명');
 ```
 
 ```html
-// 이벤트 수신
+<!-- 이벤트 수신 -->
 <child-component v-on:이벤트명="상위 컴포넌트의 메서드 명"></child-component>
+```
+
+* 이벤트 버스 형식
+앱 로직을 담는 뷰 인스턴스와는 별개의 새로운 인스턴스 1개를 더 생성하고, 그렇게 생성한 새 인스턴스를 사용해서 이벤트를 보내고 받는다. 보내는 쪽에서는 `$emit()`을 사용, 받는 컴포넌트는 `$on()`
+```javascript
+var eventBus = new Vue();
+
+// 이벤트를 보내는 컴포넌트는
+...
+methods: {
+  메서드명: function () {
+    eventBus.$emit('이벤트명', 데이터);
+  }
+}
+
+// 이벤트를 받는 컴포넌트는
+...
+methods: {
+  created: function () {
+    eventBus.$on('이벤트명', function (데이터) {
+      ...
+    });
+  }
+}
 ```
