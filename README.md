@@ -112,6 +112,59 @@ methods: {
 
 * 뷰 라우터
   * 뷰에서 라우팅 기능을 구현할 수 있도록 지원하는 공식 라이브러리
-  * 태그
-  |<router-link to="URL 값"> | 페이지 이동 태그 화면에서 <a> 테그로 표현되고, to에 지정한 URL로 이동|
-  |<router-view> | 페이지 표시 태그, 변경되는 URL에 따라 해당 컴포넌트를 뿌려주는 영역|
+
+|<router-link to="URL 값">|페이지 이동 태그 화면에서 <a> 테그로 표현되고, to에 지정한 URL로 이동|
+|<router-view>|페이지 표시 태그, 변경되는 URL에 따라 해당 컴포넌트를 뿌려주는 영역|
+
+### 네스티드 라우터
+* 부모 컴포넌트 내용을 정의한 상태에서 URL에 따라서 하위 컴포넌트를 다르게 그릴 수 있음
+```javascript
+    // feature/exam-04-1
+
+    // 컴포넌트 정의
+    // <router-view> 부분은 하위 컴포넌트를 리턴할 영역
+    var User = {
+      template: `
+      <div>
+        User Component
+        <router-view>
+      </div>
+      `
+    };
+    var UserProfile = { template: '<p>User Profile Component</p>' };
+    var UserPost = { template: '<p>User Post Component</p>' };
+
+    // 네스티드 라우팅 정의
+    var routes = [
+      {
+        path: '/user',
+        component: User,
+        children: [
+          {
+            path: 'posts',
+            component: UserPost
+          },
+          {
+            path: 'profile',
+            component: UserProfile
+          }
+        ]
+      }
+    ];
+
+    // 라우터 정의
+    var router = new VueRouter({
+      routes
+    });
+
+    // 뷰 인스턴스에 라우터 추가
+    new Vue({
+      router
+    }).$mount('#app');
+
+    // 실행 결과 확인해 보기
+    // index.html#/user
+    // index.html#/user/posts
+```
+
+### 네임드 뷰
