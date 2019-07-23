@@ -170,3 +170,32 @@ methods: {
 ```
 
 ### 네임드 뷰
+* 특정 페이지로 이동했을 때 여러 개의 컴포넌트를 동시에 표시하는 라우팅 방식
+  * `네스티드 라우터`는 상위 컴포넌트가, 하위 컴포넌트를 포함
+  * `네임드뷰`는 같은 레벨에서 여러 개의 컴포넌트를 한 번에 표시
+
+```javascript
+// 컴포넌트 정의
+var Body = { template: '<div>This is Body</div>' };
+var Header = { template: '<div>This is Header</div>' };
+var Footer = { template: '<div>This is Footer</div>' };
+
+// 라우터 정의
+var router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      components: {
+        default: Body,
+        header: Header,
+        footer: Footer
+      }
+    }
+  ]
+});
+
+// 뷰 인스턴스에 라우터 추가
+var app = new Vue({
+  router
+}).$mount('#app');
+```
