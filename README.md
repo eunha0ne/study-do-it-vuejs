@@ -199,3 +199,22 @@ var app = new Vue({
   router
 }).$mount('#app');
 ```
+
+### 뷰 HTTP 통신
+#### 뷰 리소스 (depricated) 
+
+> 더이상 지원하지 않는다고 함, 레거시 코드를 대비해서 참고해 두기
+
+```javascript
+...
+methods: {
+  getData: function () {
+    this.$http.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
+      .then(function (response) {
+        console.log(response);
+        console.log(JSON.parse(response.data));
+      });
+  }
+}
+```
+#### 엑시오스
