@@ -202,7 +202,9 @@ var app = new Vue({
 
 ### 뷰 HTTP 통신
 #### 뷰 리소스 (depricated) 
-* 더이상 지원하지 않는다고 함
+
+> 더이상 지원하지 않는다고 함, 레거시 코드를 대비해서 참고해 두기
+
 ```javascript
 ...
 methods: {
