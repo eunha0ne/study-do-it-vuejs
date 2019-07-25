@@ -199,3 +199,40 @@ var app = new Vue({
   router
 }).$mount('#app');
 ```
+<<<<<<< Updated upstream
+=======
+
+### 뷰 HTTP 통신
+#### 뷰 리소스 (depricated) 
+
+> 더이상 지원하지 않는다고 함, 레거시 코드를 대비해서 참고해 두기
+
+```javascript
+...
+methods: {
+  getData: function () {
+    this.$http.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
+      .then(function (response) {
+        console.log(response);
+        console.log(JSON.parse(response.data));
+      });
+  }
+}
+```
+#### [Axios](https://www.npmjs.com/package/axios)
+* 설치
+  * CDN
+  ```javascript
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  ```
+  * npm
+  ```
+  $ npm install axios
+  ```
+
+|API 유형|처리 결과|
+|---|---|
+|axios.get('URL 주소').then().catch()|HTTP GET|
+|axios.post('URL 주소').then().catch()|HTTP POST|
+|axios({ 옵션 속성 })|HTTP 요청에 대한 자세한 속성을 직접 정의|
+>>>>>>> Stashed changes
