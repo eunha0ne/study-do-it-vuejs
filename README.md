@@ -217,4 +217,33 @@ methods: {
   }
 }
 ```
-#### 엑시오스
+
+#### [Axios](https://www.npmjs.com/package/axios)
+* 설치
+  * CDN
+  ```javascript
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  ```
+  * npm
+  ```
+  $ npm install axios
+  ```
+
+|API 유형|처리 결과|
+|---|---|
+|axios.get('URL 주소').then().catch()|HTTP GET|
+|axios.post('URL 주소').then().catch()|HTTP POST|
+|axios({ 옵션 속성 })|HTTP 요청에 대한 자세한 속성을 직접 정의|
+
+```javascript
+...
+methods: {
+  getData: function () {
+    axios.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
+      .then(function (response) {
+        console.log(response);
+        console.log(response.data);
+      });
+  }
+```
+
