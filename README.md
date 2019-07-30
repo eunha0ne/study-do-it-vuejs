@@ -1,5 +1,5 @@
 # Do it Vue.js
-
+  
 ## Vue.js란?
 * 화면을 개발을 위한 Progresiive framework(점진적인 프레임워크), 라이브러리의 역할도 수행할 수 있다.
   * 프레임워크
@@ -7,7 +7,7 @@
   * 라이브러리
     * 자주 사용되는 기능을 모아 재활용할 수 있도록 정리한 기술 모음집
 * 프레임워크의 기능인 라우터, 상태관리, 테스팅을 쉽게 결합할 수 있음
-
+  
 ### 뷰의 특징
 * 앵귤러의 데이터 바인딩 특성
   * (Two-way Data Binding)양방향 데이터 바인딩 + 리액트의 (One-way Data Flow)단방향 데이터 흐름의 장점을 결합함
@@ -17,14 +17,14 @@
     * 마크업 언어나 GUI 코드를 비즈니스 로직 또는 벡엔드 로직과 분리하여 개발하는 소프트웨어 디자인 패턴
 * 컴포넌트 기반 프레임워크
   * 코드의 재사용성이 좋음
-
-
+  
+  
 ## 개발 환경 설정
 ### 뷰 개발자 도구 설치하기
 * [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd/related)
   * 크롬 > `...` 설정 > 도구 더보기 > 확장 프로그램 > Vue.js devtools > 파일 URL에 대한 액세스 허용
-
-## 화면을 개발하기 위한 필수 단위
+  
+## 뷰 프론트 개발
 ### 인스턴스
 ```javascript
 // 뷰 인스턴스
@@ -247,3 +247,113 @@ methods: {
   }
 ```
 
+## 템플릿
+* 뷰 Template(탬플릿)이란?
+  * HTML, CSS, 등의 마크업 속성과 뷰 인스턴스에서 정의한 데이터 및 로직을 연결하여 화면을 HTML로 변환하여 구성해 주는 속성
+  ```javascript
+  new Vue({
+    template: '<p>{{ message }}</p>'
+  });
+  ```
+
+* 템플릿에서 사용하는 뷰의 속성과 문법
+  * 데이터 바인딩
+  * 자바스크립트 표현식
+  * 디렉티브
+  * 이벤트 처리
+  * 고급 템플릿 기법
+
+### 데이터 바인딩
+#### {{ }}
+```html
+<div id="app">
+  {{ message }}
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue.js'
+    }
+  });
+</script>
+```
+  
+뷰 데이터가 변경되어도 값을 바꾸고 싶지 않은 경우에는 `v-once` 속성을 사용
+```html
+<div id="app" v-once>
+  {{ message }}
+</div>
+```
+
+#### v-bind
+아이디, 클레스, 스타일 등의 HTML 속성값에 뷰 데이터 값을 연결할 때 사용하는 데이터 연결 방식으로 HTML 속성이나 props 속성 앞에 접두사로 붙여줌
+```html
+<div id="app">
+  <p v-bind:id="someId">아이디 바인딩</p>
+  <p v-bind:class="someClass">클레스 바인딩</p>
+  <p v-bind:style="someStyle">스타일 바인딩</p>
+
+  <!-- 축약 포현 -->
+  <p :id="someId">아이디 바인딩</p>
+  <p :class="someClass">클레스 바인딩</p>
+  <p :style="someStyle">스타일 바인딩</p>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      someId: 10,
+      someClass: 'container',
+      styleA: 'color: blue'
+    }
+  });
+</script>
+```
+
+#### 자바스크립트 표현식
+{{ }} 안에 자바스크립트 표현식을 사용할 수 있음. 단, 선언문과 분기 구문은 사용할 수 없음. 화면에는 간단한 연산 결과만 표시하고, 복잡한 연산은 인스턴스 안에서 처리
+```html
+<div id="app">
+  {{ !isReverse && reverseMessage }}
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      isReverse: false,
+      message: 'Hello Vue.js'
+    },
+    // 데이터 속성을 계산해 주는 속성
+    computed: { 
+      reverseMessage: function () {
+        return this.message.split('').reverse().join('');
+      }
+    }
+  });
+</script>
+```
+
+
+#### 디렉티브
+뷰 Directive(디렉티브)란 HTML 태그 안에 v- 접두사를 가지는 모든 속성을 의미. v-bind 또한 디렉티브에 해당
+  
+``` html
+<a v-if="flag">Vue.js</a>
+```
+
+|디렉티브 이름|역할|
+|---|---|
+|v-if|지정한 불리언 값으로 HTML 태그를 렌더링|
+|v-for|지정한 뷰 데이터의 개수만큼 반복 출력|
+|v-show|지정한 불리언 값으로 CSS display 속성에 영향|
+|v-bind|HTML 속성과 뷰 데이터 속성을 binding(연결)|
+|v-on|이벤트를 감지할 때 사용. v-on:click는 클릭 이벤트 감지하여 특정 메서드를 실행하게 할 수 있음|
+|v-model|폼에서 주로 사용하는 속성. 입력한 값이 뷰 인스턴스 데이터와 즉시 동기화됨. 입력된 값을 서버로 보내거나, watch와 같은 고급 속성을 이용해서 추가 로직을 수행할 수 있음. 단, `input, select, textarea` 태그에서만 사용 가능|
+
+
+#### 이벤트 처리
+#### 고급 템플릿 기법
