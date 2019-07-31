@@ -280,6 +280,7 @@ methods: {
   });
 </script>
 ```
+    
 뷰 데이터가 변경되어도 값을 바꾸고 싶지 않은 경우에는 `v-once` 속성을 사용
 ```html
 <div id="app" v-once>
@@ -356,4 +357,43 @@ methods: {
 
 
 ### 4. 이벤트 처리
+이벤트 처리를 위해서 `v-on` 디렉티브와 methods 속성을 활용함
+```html
+<button v-on:click="clickBtn">클릭</button>
+
+<script>
+  ...
+  methods: {
+    clickBtn: function () {
+      alert('clicked');
+    }
+  }
+</script>
+```
 ### 5. 고급 템플릿 기법
+#### computed
+data 속성 값의 변화에 따라 자동으로 다시 연산한다. 그리고 연산된 값은 캐싱을 통해서 필요할 때 불러온다. 
+#### computed와 methods 차이
+methods 속성은 호출할 떄만 해당 로직이 수행되고, computed 속성은 대상 데이터의 값이 변경되면 자동적으로 수행된다는 차이가 있음. 따라서 복잡한 연산을 반복 수행해야 된다면 computed 속성이 성능 면에서 효율적임
+#### watch
+데이터 변화를 감지하여 특정 로직을 수행. 데이터 호출과 같이 시간이 상대적으로 더 많이 소모되는 비동기 처리에 적합
+```html
+<div id="app">
+  <input v-model="message">
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+  watch: {
+    message: function (data) {
+      console.log("message의 값이 변경:", data);
+    }
+  }
+})
+</script>
+```
+인풋 박스의 입력 값을 디렉티브로 바인딩하고 입력 값에 변화를 감지해서 로직을 수행
