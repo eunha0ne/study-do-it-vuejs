@@ -425,3 +425,7 @@ new Vue({
 * [Nuxt.js](http://nuxtjs.org/)
 
 ### 웹팩
+
+
+## 참고 링크
+* [Vue Media Query](https://alligator.io/vuejs/vue-media-queries/)
